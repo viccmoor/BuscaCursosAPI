@@ -1,5 +1,5 @@
 services:
-  api:
+  buscacursosapi:
     build: .
     image: buscacursosapi-image
     container_name: buscacursosapi-container
@@ -14,5 +14,5 @@ services:
     volumes:
       - /home/ubuntu/.cloudflared:/etc/cloudflared:ro
     depends_on:
-      - api
+      - buscacursosapi
     restart: unless-stopped
