@@ -14,7 +14,7 @@ services:
     environment:
       - TUNNEL_ORIGIN_CERT=/etc/cloudflared/cert.pem
     volumes:
-      - /home/ubuntu/.cloudflared:/etc/cloudflared
+      - /home/ubuntu/.cloudflared:/etc/cloudflared:ro
     depends_on:
       - api
     restart: unless-stopped
