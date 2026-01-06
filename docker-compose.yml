@@ -10,7 +10,9 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
-    command: tunnel --no-autoupdate --url http://api:8000
+    command: tunnel --no-autoupdate run api
+    volumes:
+      - ~/.cloudflared:/etc/cloudflared
     depends_on:
       - api
     restart: unless-stopped
