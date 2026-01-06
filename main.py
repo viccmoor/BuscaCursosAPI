@@ -1,21 +1,21 @@
 """Módulo principal para el funcionamiento de la API"""
-from typing import List, Dict, Optional
+from typing import Optional
 
 from fastapi import FastAPI, HTTPException
 from bcscraper import buscar_curso, buscar_sigla
 
-from models import CursoModel
+from models import CursosResponse
 from utils import curso_to_model
 
 app = FastAPI()
 
 
-@app.get("/api/cursos/", response_model=Dict[str, List[CursoModel]])
+@app.get("/api/cursos/", response_model=CursosResponse)
 def get_curso(
     periodo: str,
     nombre: Optional[str] = None,
     sigla: Optional[str] = None
-) -> Dict[str, List[CursoModel]]:
+) -> CursosResponse:
     """Obtiene información de cursos según el período y nombre o sigla."""
     if (
         (nombre is None and sigla is None) or
@@ -49,5 +49,17 @@ def get_curso(
             )
         )
 
-    cursos_model = [curso_to_model(c) for c in cursos]
-    return {"curso": cursos_model}
+    curso_model = [curso_to_model(c) for c in cursos]
+    return {
+        "data": {
+            "curso": curso_model
+        },
+        "meta": {
+            "periodo": periodo,
+            "filtro": {
+                "nombre": nombre,
+                "sigla": sigla,
+            },
+            "cursos_encontrados": len(curso_model),
+        }
+    }
