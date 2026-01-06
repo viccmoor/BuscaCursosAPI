@@ -1,8 +1,16 @@
 services:
-  fastapi:
-    image: buscacursosapi-image
+  api:
     build: .
+    image: buscacursosapi-image
     container_name: buscacursosapi-container
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    command: tunnel --no-autoupdate --url http://api:8000
+    depends_on:
+      - api
     restart: unless-stopped
