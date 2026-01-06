@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  fastapi:
+    image: buscacursosapi-image
+    build: .
+    container_name: buscacursosapi-container
+    ports:
+      - "8000:8000"
