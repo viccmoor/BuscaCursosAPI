@@ -11,6 +11,8 @@ services:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
     command: tunnel --no-autoupdate run api
+    environment:
+      - TUNNEL_ORIGIN_CERT=/etc/cloudflared/cert.pem
     volumes:
       - /home/ubuntu/.cloudflared:/etc/cloudflared
     depends_on:
