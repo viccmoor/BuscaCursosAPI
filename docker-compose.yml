@@ -12,7 +12,7 @@ services:
     container_name: cloudflared
     command: tunnel --no-autoupdate run api
     volumes:
-      - ~/.cloudflared:/etc/cloudflared
+      - /home/ubuntu/.cloudflared:/etc/cloudflared
     depends_on:
       - api
     restart: unless-stopped
