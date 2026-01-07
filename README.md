@@ -23,6 +23,7 @@ GET /api/cursos/cursos/?periodo=2026-1&sigla=MAT1610&nrc=12345&nombre=Calculo+I&
 | `nrc` | Número de referencia del curso (ej: 12345) |
 | `nombre` | Nombre del curso (ej: Cálculo I) |
 | `profesor` | Nombre del profesor (ej: Nombre Apellido) |
+| `proxy_url` | Servidor intermedio o un mirror de BuscaCursos (recomendado) |
 
 El parámetro `periodo` es obligatorio y debe acompañarse de al menos uno de los parámetros.
 

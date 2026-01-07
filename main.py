@@ -17,6 +17,7 @@ def get_curso(
     nrc: Optional[str] = "",
     nombre: Optional[str] = "",
     profesor: Optional[str] = "",
+    proxy_url: Optional[str] = None,
 ) -> CursosResponse:
     """Obtiene información de cursos según el período y nombre o sigla."""
     if not any((sigla, nrc, nombre, profesor)):
@@ -29,7 +30,13 @@ def get_curso(
         )
 
     try:
-        curso = buscar_curso(periodo, sigla, nrc, nombre, profesor)
+        if proxy_url:
+            curso = buscar_curso(
+                periodo, sigla, nrc, nombre,
+                profesor, proxy_url
+            )
+        else:
+            curso = buscar_curso(periodo, sigla, nrc, nombre, profesor)
     except Exception as e:
         raise HTTPException(
             status_code=500,
