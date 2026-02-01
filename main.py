@@ -17,15 +17,27 @@ def get_curso(
     nrc: Optional[str] = "",
     nombre: Optional[str] = "",
     profesor: Optional[str] = "",
+    campus: Optional[str] = "",
+    formato: Optional[str] = "",
+    categoria: Optional[str] = "",
+    area_fg: Optional[str] = "",
+    unidad_academica: Optional[str] = "",
+    periodo_admision: Optional[str] = "",
+    escuela: Optional[str] = "",
+    nivel: Optional[str] = "",
     proxy_url: Optional[str] = None,
 ) -> CursosResponse:
     """Obtiene información de cursos según el período y nombre o sigla."""
-    if not any((sigla, nrc, nombre, profesor)):
+    if not any((
+        sigla, nrc, nombre, profesor, campus, formato,
+        categoria, area_fg, unidad_academica, periodo_admision,
+        escuela, nivel
+    )):
         raise HTTPException(
             status_code=400,
             detail=(
-                "Debes proporcionar al menos uno de los parámetros: "
-                "'nombre', 'sigla', 'nrc' o 'profesor'."
+                "Debes proporcionar al menos uno de los parámetros  "
+                "opcionales."
             )
         )
 
@@ -33,10 +45,17 @@ def get_curso(
         if proxy_url:
             curso = buscar_curso(
                 periodo, sigla, nrc, nombre,
-                profesor, proxy_url
+                profesor, formato, categoria,
+                area_fg, unidad_academica, periodo_admision,
+                escuela, nivel, proxy_url
             )
         else:
-            curso = buscar_curso(periodo, sigla, nrc, nombre, profesor)
+            curso = buscar_curso(
+                periodo, sigla, nrc, nombre,
+                profesor, formato, categoria,
+                area_fg, unidad_academica, periodo_admision,
+                escuela, nivel
+            )
     except Exception as e:
         raise HTTPException(
             status_code=500,
