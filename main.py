@@ -45,16 +45,17 @@ def get_curso(
         if proxy_url:
             curso = buscar_curso(
                 periodo, sigla, nrc, nombre,
-                profesor, formato, categoria,
-                area_fg, unidad_academica, periodo_admision,
-                escuela, nivel, proxy_url
+                profesor, campus, formato,
+                categoria, area_fg, unidad_academica,
+                periodo_admision, escuela, nivel,
+                proxy_url
             )
         else:
             curso = buscar_curso(
                 periodo, sigla, nrc, nombre,
-                profesor, formato, categoria,
-                area_fg, unidad_academica, periodo_admision,
-                escuela, nivel
+                profesor, campus, formato,
+                categoria, area_fg, unidad_academica,
+                periodo_admision, escuela, nivel
             )
     except Exception as e:
         raise HTTPException(
